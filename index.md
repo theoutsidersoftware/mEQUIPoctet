@@ -10,4 +10,4 @@ Current version is v0.1.0, which is a pre-release.
 
 # License
 
-mEQUIPoctet is available under the [GPL license](LICENSE).
+mEQUIPoctet is available under the [GPL license](https://www.gnu.org/licenses/gpl-3.0.en.html).
