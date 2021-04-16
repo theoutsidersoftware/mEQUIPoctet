@@ -2,7 +2,7 @@
 
 A Minimal Equipment Octet Tool for Perfect World.
 
-![Image of Main Window](img/main.png)
+![Image of Main Window](main.png)
 
 # License
 
