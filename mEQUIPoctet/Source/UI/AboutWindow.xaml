@@ -1,0 +1,36 @@
+﻿<Window x:Class="mEQUIPoctet.Source.UI.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="About"
+        Icon="/Resources/Icon.ico"
+        ShowInTaskbar="False"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="328" Width="230">
+        <Label Content="A Minimal Equipment Octect Tool" VerticalAlignment="Top" Margin="10,10,10,0"/>
+        <Label Name="VersionText" Content="v" VerticalAlignment="Top" Margin="10,41,10,0"/>
+        <TextBlock TextWrapping="Wrap" VerticalAlignment="Top" Margin="15,72,10,0">
+            <Hyperlink NavigateUri="https://github.com/theoutsidersoftware/mEQUIPoctet" RequestNavigate="Hyperlink_RequestNavigate">Source code available on GitHub</Hyperlink>
+        </TextBlock>
+        <TextBlock TextWrapping="Wrap" FontSize="9" VerticalAlignment="Top" Margin="15,98,10,0">
+            mEQUIPoctet Copyright (C) 2021 <Hyperlink NavigateUri="http://forum.ragezone.com/members/2000228136.html" RequestNavigate="Hyperlink_RequestNavigate">TheOutsider</Hyperlink><LineBreak/>
+            <LineBreak/>
+            This program is free software: you can redistribute it and/or modify
+            it under the terms of the GNU General Public License as published by
+            the Free Software Foundation, either version 3 of the License, or
+            (at your option) any later version.<LineBreak/>
+            <LineBreak/>
+            This program is distributed in the hope that it will be useful,
+            but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+            GNU General Public License for more details.<LineBreak/>
+            <LineBreak/>
+            You should have received a copy of the GNU General Public License
+            along with this program.  If not, see <Hyperlink NavigateUri="https://www.gnu.org/licenses/gpl-3.0.en.html" RequestNavigate="Hyperlink_RequestNavigate">https://www.gnu.org/licenses/gpl-3.0.en.html</Hyperlink>.
+        </TextBlock>
+    </Grid>
+</Window>

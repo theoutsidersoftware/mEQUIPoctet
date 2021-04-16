@@ -1,0 +1,38 @@
+﻿<Window x:Class="mEQUIPoctet.Source.UI.MaskWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Mask List"
+        Icon="/Resources/Icon.ico"
+        ShowInTaskbar="False"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="329" Width="204">
+        <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" Margin="10" FontFamily="Consolas" xml:space="preserve">      0: General Items
+      1: Weapon
+      2: Headgear
+      4: Necklace
+      8: Cape
+     16: Breastplate
+     32: Belt
+     64: Leggings
+    128: Footwear
+    256: Wristguard
+   1536: Ring
+   2048: Arrows
+   4096: Wings
+   8192: Fashion top
+  16384: Fashion legs
+  32768: Fashion footwear
+  65536: Fashion arms
+ 131072: Atk/Mag Atk Charms
+ 262144: Tome
+ 524288: Smilies
+1048576: Guardian Charm
+2097152: Spirit Charm</TextBox>
+
+    </Grid>
+</Window>

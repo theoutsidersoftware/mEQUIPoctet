@@ -1,0 +1,303 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="clr-namespace:mEQUIPoctet.Source.UI"
+        xmlns:converter="clr-namespace:mEQUIPoctet.Source.UI.Converter"
+        xmlns:config="clr-namespace:mEQUIPoctet.Source.Config"
+        x:Class="mEQUIPoctet.Source.UI.MainWindow"
+        mc:Ignorable="d"
+        Title="mEQUIPoctet"
+        ResizeMode="CanMinimize"
+        Icon="/Resources/Icon.ico"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <converter:AddonConverter x:Key="AddonConverter"/>
+        <converter:BooleanGrayConverter x:Key="BooleanGrayConverter"/>
+        <converter:EquipmentTypeIndexConverter x:Key="EquipmentTypeIndexConverter"/>
+        <converter:InverseBooleanGrayConverter x:Key="InverseBooleanGrayConverter"/>
+        <converter:SoulgemNameConverter x:Key="SoulgemNameConverter"/>
+        <converter:SoulgemDescriptionConverter x:Key="SoulgemDescriptionConverter"/>
+    </Window.Resources>
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}" Height="589" Width="754">
+        <Menu>
+            <MenuItem Header="Help">
+                <MenuItem Name="MaskMenuItem" Header="Mask" Click="MaskMenuItem_Click"/>
+                <MenuItem Name="ProctypeMenuItem" Header="Proctype" Click="ProctypeMenuItem_Click"/>
+                <Separator/>
+                <MenuItem Name="AboutMenuItem" Header="About" Click="AboutMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <GroupBox Header="Stats" HorizontalAlignment="Left" Height="273" Margin="226,25,0,0" VerticalAlignment="Top" Width="281">
+            <Grid Margin="0,0,0,0">
+                <TabControl SelectedIndex="{Binding Equipment.Type, Converter={StaticResource EquipmentTypeIndexConverter}}" Margin="0,0,0,0">
+                    <TabItem Name="WeaponTabItem" Header="Weapon">
+                        <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                            <Label Content="Major Type" Margin="23,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Name="WeaponMajorTypeTextBox" Text="{Binding Equipment.WeaponMajorType}" TextChanged="WeaponMajorTypeTextBox_TextChanged" Margin="97,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+                            <ComboBox Name="WeaponMajorTypeComboBox" ItemsSource="{Binding Source={x:Static config:Presets.WeaponMajorType}}" SelectedValue="{Binding Equipment.WeaponMajorType}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="172,8,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="81"/>
+
+                            <Label Content="Grade" Margin="50,29,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Name="GradeTextBox" Text="{Binding Equipment.Grade}" Margin="97,33,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Attack Rate" Margin="22,52,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AttackRate, StringFormat=N2}" Margin="97,56,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Range" Margin="49,75,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.Range, StringFormat=N2}" Margin="97,79,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Min. Range" Margin="22,98,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.RangeMin, StringFormat=N2}" Margin="97,102,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Physical Attack" Margin="3,121,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.PhysicalAttackLow}" Margin="97,125,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+                            <Label Content="–" Margin="167,121,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.PhysicalAttackHigh}" Margin="183,125,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+
+                            <Label Content="Magical Attack" Margin="4,144,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.MagicalAttackLow}" Margin="97,148,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+                            <Label Content="–" Margin="167,144,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.MagicalAttackHigh}" Margin="183,148,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+
+                            <Label Content="Projectile" Margin="33,167,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Name="ProjectileTextBox" Text="{Binding Equipment.Projectile}" TextChanged="ProjectileTextBox_TextChanged" Margin="97,171,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="70"/>
+                            <ComboBox Name="ProjectileComboBox" ItemsSource="{Binding Source={x:Static config:Presets.Projectile}}" SelectedValue="{Binding Equipment.Projectile}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="172,169,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="81"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="ArmorTabItem" Header="Armor">
+                        <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                            <Label Content="Physical Resistance" Margin="3,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorPhysicalDefense}" Margin="118,10,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Evasion" Margin="63,29,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorEvasion}" Margin="118,33,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="MP" Margin="86,52,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.MP}" Margin="118,56,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="HP" Margin="88,75,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.HP}" Margin="118,79,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Metal Resistance" Margin="15,98,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorMetalDefense}" Margin="118,102,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Wood Resistance" Margin="13,121,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorWoodDefense}" Margin="118,125,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Water Resistance" Margin="13,144,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorWaterDefense}" Margin="118,148,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Fire Resistance" Margin="26,167,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorFireDefense}" Margin="118,171,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Earth Resistance" Margin="18,190,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.ArmorEarthDefense}" Margin="118,194,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="AccessoryTabItem" Header="Accessory">
+                        <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                            <Label Content="Physical Attack" Margin="24,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.PhysicalAttackFlat}" Margin="118,10,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Magical Attack" Margin="25,29,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.MagicalAttackFlat}" Margin="118,33,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Physical Resistance" Margin="3,52,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryPhysicalDefense}" Margin="118,56,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Evasion" Margin="63,75,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryEvasion}" Margin="118,79,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Metal Resistance" Margin="15,98,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryMetalDefense}" Margin="118,102,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Wood Resistance" Margin="13,121,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryWoodDefense}" Margin="118,125,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Water Resistance" Margin="13,144,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryWaterDefense}" Margin="118,148,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Fire Resistance" Margin="26,167,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryFireDefense}" Margin="118,171,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                            <Label Content="Earth Resistance" Margin="18,190,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                            <TextBox Text="{Binding Equipment.AccessoryEarthDefense}" Margin="118,194,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Requirements" Margin="10,25,0,0" HorizontalAlignment="Left" Height="244" VerticalAlignment="Top" Width="211">
+            <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                <Label Content="Level" Margin="27,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.Level}" Margin="69,10,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Strength" Margin="9,29,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.Strength}" Margin="69,33,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Vitality" Margin="18,51,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.Vitality}" Margin="69,55,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Dexterity" Margin="7,74,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.Dexterity}" Margin="69,78,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Magic" Margin="22,97,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.Magic}" Margin="69,101,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Class" Margin="27,120,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="ClassesTextBox" Text="{Binding Equipment.Classes}" TextChanged="ClassesTextBox_TextChanged" Margin="69,124,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                <ListBox Name="ClassesListBox" ItemsSource="{Binding Source={x:Static config:Presets.Classes}}" SelectionChanged="ClassesListBox_SelectionChanged" SelectedValuePath="Key" DisplayMemberPath="Value" SelectionMode="Multiple" Margin="69,147,10,0" Height="64" VerticalAlignment="Top">
+                    <ListBox.Resources>
+                        <SolidColorBrush x:Key="ItemContainerSelectedBackground" Color="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionColorKey}}"/>
+                        <SolidColorBrush x:Key="ItemContainerSelectedBorder" Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+                    </ListBox.Resources>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border
+                                    x:Name="Bd"
+                                    MinHeight="{TemplateBinding MinHeight}"
+                                    MaxHeight="{TemplateBinding MaxHeight}"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="true">
+                                            <ContentPresenter
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource ItemContainerSelectedBackground}" />
+                                    <Setter Property="BorderBrush" Value="{StaticResource ItemContainerSelectedBorder}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Refinement" HorizontalAlignment="Left" Height="107" Margin="10,274,0,0" VerticalAlignment="Top" Width="211">
+            <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                <Label Content="Level" Margin="27,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.RefineParam2}" Margin="69,10,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Effect" Margin="25,29,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="RefineIdTextBox" Text="{Binding Equipment.RefineId}" TextChanged="RefineIdTextBox_TextChanged" Margin="69,33,0,0" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58" />
+                <ComboBox Name="RefineIdComboBox" ItemsSource="{Binding Source={x:Static config:Presets.Refine}}" SelectedValue="{Binding Equipment.RefineId}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="132,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="57"/>
+
+                <Label Content="Value" Margin="25,52,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Text="{Binding Equipment.RefineValue}" Margin="69,56,10,0" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Miscellaneous" HorizontalAlignment="Left" Height="168" Margin="10,386,0,0" VerticalAlignment="Top" Width="211">
+            <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                <Label Content="Durability"  Margin="3,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="DurabilityCurrentTextBox" Text="{Binding Equipment.DurabilityCurrent}" Margin="69,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="53"/>
+                <Label Content="/" Margin="122,6,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="DurabilityMaxTextBox" Text="{Binding Equipment.DurabilityMax}" Margin="137,10,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="52"/>
+
+                <Label Content="GFX" Margin="33,29,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="GFXTextBox" Text="{Binding Equipment.GFX}" TextChanged="GFXTextBox_TextChanged" Margin="69,33,0,0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="53" Height="18" VerticalAlignment="Top"/>
+                <ComboBox Name="GFXComboBox" ItemsSource="{Binding Source={x:Static config:Presets.GFX}}" SelectedValue="{Binding Equipment.GFX}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="127,31,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="62"/>
+
+                <Label Content="Signature" Margin="3,54,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <ComboBox Name="SignatureTypeComboBox" ItemsSource="{Binding Source={x:Static config:Presets.SignatureTypes}}" SelectedValue="{Binding Equipment.SignatureType}" SelectionChanged="SignatureTypeComboBox_SelectionChanged" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="69,56,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                <!-- Max length of signature is 126 characters, because length of signature is represented as a byte. Each character is 2 bytes, and Ink signature type adds +2 bytes -->
+                <TextBox Name="SignatureTextBox" Text="{Binding Equipment.Signature}" IsEnabled="False" MaxLength="126" Foreground="#000000" Margin="69,83,10,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                <Button Name="InkColorButton" Click="InkColorButton_Click" IsEnabled="False" Margin="69,106,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="28" Height="29">
+                    <StackPanel>
+                        <Image x:Name="InkColorButtonIcon" Source="/Resources/color_select.png" Height="24" Width="24"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Sockets" Margin="512,25,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="232" Height="273">
+            <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                <ui:SelectableListView x:Name="SocketsListView" ItemsSource="{Binding Equipment.Sockets}" SelectionChanged="SocketsListView_SelectionChanged" Margin="10,10,0,0" SelectionMode="Extended" Height="108" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="190" Header="Soulgem"
+                                    DisplayMemberBinding="{Binding Soulgem, Converter={StaticResource SoulgemNameConverter}}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="ToolTip" Value="{Binding Soulgem, Converter={StaticResource SoulgemDescriptionConverter}}" />
+                            <Setter Property="ToolTipService.InitialShowDelay" Value="0"/>
+                            <Setter Property="ToolTipService.ShowDuration" Value="86400"/>
+                            <Setter Property="Foreground" Value="{Binding HasAddon, Converter={StaticResource InverseBooleanGrayConverter}}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock TextDecorations="Strikethrough" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ui:SelectableListView>
+                <Label Content="Soulgem" Margin="15,118,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="SoulgemTextBox" TextChanged="SoulgemTextBox_TextChanged" LostFocus="TextBoxEnforceInteger" Margin="77,123,23,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                <ComboBox Name="SoulgemComboBox" ItemsSource="{Binding Source={x:Static config:Presets.Soulgem}}" SelectionChanged="SoulgemComboBox_SelectionChanged" DropDownClosed="SoulgemComboBox_DropDownClosed" SelectedValuePath="Key" DisplayMemberPath="Value[0]" Margin="77,146,23,0" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <Label Content="Addon?" Margin="21,172,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <CheckBox Name="SoulgemAddonCheckBox" IsEnabled="False" Margin="77,178,127,0" VerticalAlignment="Top"/>
+
+                <Button Name="SocketAddButton" Content="+" Click="SocketAddButton_Click" Margin="72,212,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="28"/>
+                <Button Name="SocketRemoveButton" Content="-" Click="SocketRemoveButton_Click" Margin="0,212,72,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="28" Width="28"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Addons" Margin="226,303,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="518" Height="251">
+            <Grid Margin="0,0,0,0" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                <ui:SelectableListView x:Name="AddonsListView" ItemsSource="{Binding Equipment.Addons}" SelectionChanged="AddonsListView_SelectionChanged" Margin="10,10,10,0" SelectionMode="Extended" Height="102" VerticalAlignment="Top">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="459" Header="Addon" DisplayMemberBinding="{Binding Path=., Converter={StaticResource AddonConverter}}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Foreground" Value="{Binding Hidden, Converter={StaticResource BooleanGrayConverter}}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ui:SelectableListView>
+                <Label Content="Id" Margin="29,121,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="AddonIdTextBox" TextChanged="AddonIdTextBox_TextChanged" LostFocus="TextBoxEnforceInteger" Margin="54,125,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="120"/>
+
+                <Label Content="Type" Margin="14,146,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <ComboBox Name="AddonTypeComboBox" ItemsSource="{Binding Source={x:Static config:Presets.AddonTypes}}" SelectionChanged="AddonTypeComboBox_SelectionChanged" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="54,148,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="120"/>
+
+                <Label Content="Value" Margin="194,121,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="AddonValueTextBox" Margin="238,125,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="120"/>
+
+                <Label Content="Param2" Margin="183,144,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="AddonParam2TextBox" LostFocus="TextBoxEnforceInteger" Margin="238,148,0,0" IsEnabled="False" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="120"/>
+
+                <Label Content="Param3" Margin="183,167,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <TextBox Name="AddonParam3TextBox" LostFocus="TextBoxEnforceInteger" Margin="238,171,0,0" IsEnabled="False" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="120"/>
+
+                <Label Content="Hidden?" Margin="179,190,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Left"/>
+                <CheckBox Name="AddonHiddenCheckBox" Margin="238,196,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+
+                <ComboBox Name="AddonComboBox" ItemsSource="{Binding Source={x:Static config:Presets.AddonSource}}" SelectionChanged="AddonComboBox_SelectionChanged" DropDownClosed="AddonComboBox_DropDownClosed" SelectedValuePath="Key" DisplayMemberPath="Value[0]" Margin="367,123,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" Width="120"/>
+                <Button Name="AddonAddButton" Content="+" Click="AddonAddButton_Click" Margin="389,153,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="28" Height="28"/>
+                <Button Name="AddonRemoveButton"  Content="-" Click="AddonRemoveButton_Click" Margin="437,153,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="28" Height="28"/>
+            </Grid>
+        </GroupBox>
+
+        <TextBox Name="OctetTextBox" Text="{Binding Octet}" Margin="10,559,0,0" HorizontalAlignment="Left" VerticalContentAlignment="Center" Width="532" Height="20" VerticalAlignment="Top"/>
+        <Button Name="ImportButton" Click="ImportButton_Click" Content="Import" Margin="648,559,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="96" Height="20"/>
+        <Button Name="GenerateButton" Click="GenerateButton_Click" Content="Generate" Margin="547,559,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="96" Height="20" Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+    </Grid>
+</Window>
